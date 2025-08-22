@@ -4,21 +4,24 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-//@Config       //if you want config
-//@TeleOp       //if this is a teleop
-@Autonomous   //if this is an auto
+@Config       //if you want config
+@TeleOp       //if this is a teleop
+//@Autonomous   //if this is an auto
 public class TestOp extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    GamepadEx g12;
+    GamepadEx g1;
 
     //this section allows us to access telemetry data from a browser
     FtcDashboard dashboard = FtcDashboard.getInstance();
     Telemetry dashboardTelemetry = dashboard.getTelemetry();
+    DcMotor myMotor;
 
     /*
      * Code to run ONCE when the driver hits INIT
