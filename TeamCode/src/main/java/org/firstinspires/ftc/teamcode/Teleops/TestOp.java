@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Teleops;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -33,6 +34,8 @@ public class TestOp extends OpMode {
         // step
         g1 = new GamepadEx(gamepad1);
 
+        myMotor = hardwareMap.get(DcMotor.class,"myMotor");
+
         // Tell the driver that initialization is complete.
         dashboardTelemetry.addData("Status", "Initialized");
         dashboardTelemetry.update();
@@ -51,6 +54,8 @@ public class TestOp extends OpMode {
     @Override
     public void start() {
         runtime.reset();
+        myMotor.setPower(.5);
+
     }
 
     /*
@@ -68,5 +73,6 @@ public class TestOp extends OpMode {
      */
     @Override
     public void stop() {
+        myMotor.setPower(0);
     }
 }
