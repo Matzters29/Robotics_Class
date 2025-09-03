@@ -12,7 +12,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 @Config
-public class DriveTrain {
+public class  DriveTrain {
     private IMU imu;
     private final DcMotorEx leftMotor;
     private final DcMotorEx rightMotor;

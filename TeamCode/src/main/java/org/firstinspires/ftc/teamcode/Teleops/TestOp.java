@@ -24,6 +24,7 @@ public class TestOp extends OpMode {
     Telemetry dashboardTelemetry = dashboard.getTelemetry();
     DcMotor myMotor;
 
+    public static double speed = .5;
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -34,11 +35,12 @@ public class TestOp extends OpMode {
         // step
         g1 = new GamepadEx(gamepad1);
 
-        myMotor = hardwareMap.get(DcMotor.class,"myMotor");
+        myMotor = hardwareMap.get(DcMotor.class, "myMotor");
 
         // Tell the driver that initialization is complete.
         dashboardTelemetry.addData("Status", "Initialized");
         dashboardTelemetry.update();
+
     }
 
     /*
@@ -54,9 +56,10 @@ public class TestOp extends OpMode {
     @Override
     public void start() {
         runtime.reset();
-        myMotor.setPower(.5);
-
+        myMotor.setPower(0.5);
     }
+
+
 
     /*
      * Code to run REPEATEDLY after the driver hits START but before they hit STOP
@@ -64,6 +67,8 @@ public class TestOp extends OpMode {
     @Override
     public void loop() {
         g1.readButtons();
+        myMotor.setPower(speed);
+        dashboardTelemetry.addData("motor speed", speed);
         dashboardTelemetry.addData("Status", "Run Time: " + runtime.toString());
         dashboardTelemetry.update();
     }
