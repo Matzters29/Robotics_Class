@@ -56,7 +56,10 @@ public class TestOp extends OpMode {
     @Override
     public void start() {
         runtime.reset();
-        myMotor.setPower(0.5);
+        myMotor.setPower(speed);
+        myMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset the motor encoder
+        myMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // Turn the motor back on when we are done
+        int position = myMotor.getCurrentPosition();
     }
 
 
@@ -70,6 +73,7 @@ public class TestOp extends OpMode {
         myMotor.setPower(speed);
         dashboardTelemetry.addData("motor speed", speed);
         dashboardTelemetry.addData("Status", "Run Time: " + runtime.toString());
+        dashboardTelemetry.addData("motor ticks",myMotor.getCurrentPosition());
         dashboardTelemetry.update();
     }
 
