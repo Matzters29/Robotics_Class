@@ -3,10 +3,13 @@ package org.firstinspires.ftc.teamcode.Teleops;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.ImuOrientationOnRobot;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -24,6 +27,8 @@ public class TestOp extends OpMode {
     Telemetry dashboardTelemetry = dashboard.getTelemetry();
     DcMotor myMotor;
 
+    IMU myIMU;
+
     public static double speed = .5;
     /*
      * Code to run ONCE when the driver hits INIT
@@ -36,6 +41,11 @@ public class TestOp extends OpMode {
         g1 = new GamepadEx(gamepad1);
 
         myMotor = hardwareMap.get(DcMotor.class, "myMotor");
+
+        myIMU = hardwareMap.get(IMU.class, "imu");
+        ImuOrientationOnRobot orientation = new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.FORWARD);
+        IMU.Parameters param = new IMU.Parameters(orientation);
+        myIMU.initialize(param);
 
         // Tell the driver that initialization is complete.
         dashboardTelemetry.addData("Status", "Initialized");
@@ -69,9 +79,11 @@ public class TestOp extends OpMode {
      */
     @Override
     public void loop() {
+
         g1.readButtons();
         myMotor.setPower(speed);
         int position = myMotor.getCurrentPosition();
+        dashboardTelemetry.addData("angle", myIMU.getRobotYawPitchRollAngles().getYaw());
         dashboardTelemetry.addData("motor speed", speed);
         dashboardTelemetry.addData("Status", "Run Time: " + runtime.toString());
         dashboardTelemetry.addData("motor ticks", position);
