@@ -60,7 +60,7 @@ public class TestOp extends OpMode {
         myMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset the motor encoder
         myMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // Turn the motor back on when we are done
         int position = myMotor.getCurrentPosition();
-    }
+        }
 
 
 
@@ -71,9 +71,10 @@ public class TestOp extends OpMode {
     public void loop() {
         g1.readButtons();
         myMotor.setPower(speed);
+        int position = myMotor.getCurrentPosition();
         dashboardTelemetry.addData("motor speed", speed);
         dashboardTelemetry.addData("Status", "Run Time: " + runtime.toString());
-        dashboardTelemetry.addData("motor ticks",myMotor.getCurrentPosition());
+        dashboardTelemetry.addData("motor ticks", position);
         dashboardTelemetry.update();
     }
 
