@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Teleops;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
+import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -26,8 +27,11 @@ public class TestOp extends OpMode {
     FtcDashboard dashboard = FtcDashboard.getInstance();
     Telemetry dashboardTelemetry = dashboard.getTelemetry();
     DcMotor myMotor;
-
     IMU myIMU;
+    public class PIDConstants{
+        public double Kp = 1.8;
+        }
+
 
     public static double speed = .5;
     /*
@@ -83,11 +87,14 @@ public class TestOp extends OpMode {
         g1.readButtons();
         myMotor.setPower(speed);
         int position = myMotor.getCurrentPosition();
-        dashboardTelemetry.addData("angle", myIMU.getRobotYawPitchRollAngles().getYaw());
+        dashboardTelemetry.addData("Yaw", myIMU.getRobotYawPitchRollAngles().getYaw());
+        dashboardTelemetry.addData("Pitch", myIMU.getRobotYawPitchRollAngles().getPitch());
+        dashboardTelemetry.addData("Roll", myIMU.getRobotYawPitchRollAngles().getRoll());
         dashboardTelemetry.addData("motor speed", speed);
         dashboardTelemetry.addData("Status", "Run Time: " + runtime.toString());
         dashboardTelemetry.addData("motor ticks", position);
         dashboardTelemetry.update();
+
     }
 
     /*
